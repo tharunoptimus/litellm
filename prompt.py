@@ -19,6 +19,7 @@ tokenizer = T5Tokenizer.from_pretrained(base_model_name)
 # Checking if GPU is available and setting device type
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device.type, "is available")
+torch.set_num_threads(1)
 print(torch.get_num_threads(), "threads available!")
 
 def litellm():
