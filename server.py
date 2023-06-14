@@ -46,6 +46,7 @@ def litellm(prompt):
 
 # Import the necessary libraries for the API
 from fastapi import FastAPI
+from starlette.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
