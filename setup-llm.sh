@@ -18,4 +18,5 @@ echo "Downloading the source for the server..."
 echo "You will have to download about 400MB during setting up the model"
 
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/server.py -o server.py
+wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/page.html -o page.html
 echo "Installation complete. Run `python3 server.py` to start the server"
