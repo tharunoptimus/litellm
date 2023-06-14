@@ -59,6 +59,10 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers in the requests
 )
 
+@app.get("/")
+def root():
+    return FileResponse("./page.html")
+
 @app.get("/generate")
 def endpoint(prompt: str):
     response = litellm(prompt)
