@@ -48,10 +48,14 @@ def litellm(prompt):
 # Import the necessary libraries for the API
 from fastapi import FastAPI
 from starlette.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 app = FastAPI()
+
+# Mount the static files directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # CORS Configuration
 app.add_middleware(
@@ -63,7 +67,7 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    return FileResponse("./page.html")
+    return FileResponse("./index.html")
 
 @app.get("/generate")
 def endpoint(prompt: str):
