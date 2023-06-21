@@ -15,8 +15,13 @@ pip install fastapi
 pip install uvicorn
 
 echo "Downloading the source for the server..."
-echo "You will have to download about 400MB during setting up the model"
+echo "You will have to download about 400MB during first run..."
 
+echo "Downloading the required files for the app..."
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/server.py -O server.py
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/index.html -O index.html
+mkdir static
+cd static && wget https://github.com/tharunoptimus/litellm/blob/main/static/style.css -O style.css
+cd static && wget https://github.com/tharunoptimus/litellm/blob/main/static/app.js -O app.js
+
 echo "Installation complete. Run `python3 server.py` to start the server"
