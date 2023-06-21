@@ -33,7 +33,7 @@ def litellm(prompt):
     output = model.generate(
       input_ids=input_ids,
       max_length=512,  # Increase max_length
-      num_beams=8,  # Increase num_beams
+      num_beams=1,  # Increase num_beams
       no_repeat_ngram_size=4,  # Increase no_repeat_ngram_size
       early_stopping=True,
       top_p=0.95, # Sample from the top 95% of the distribution
