@@ -10,7 +10,7 @@ rm service.py
 printf "Downloading the latest files...\n"
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/service.py -O service.py
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/index.html -O index.html
-printf "Creating the folder `static`\n"
+printf "Creating the folder: static\n"
 mkdir static
 cd static
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/style.css -O style.css
