@@ -26,9 +26,11 @@ submitButton.addEventListener("click", async () => {
 })
 
 promptTextInput.addEventListener("keyup", (event) => {
+	clearStatus()
+	clearOutput()
 	if(event.keyCode == 13) {
 		event.preventDefault()
-		submit.click()
+		submitButton.click()
 	}
 })
 
