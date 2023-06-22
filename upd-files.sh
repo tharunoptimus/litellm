@@ -15,4 +15,16 @@ cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/s
 cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/app.js -O app.js
 
 printf "Successfully Updated the Local Files with the latest udpate!\n\n"
+
+printf "\n"
+printf "\n"
+printf " _      _  _          _      _     ___  ___\n"
+printf "| |    (_)| |        | |    | |    |  \/  |\n"
+printf "| |     _ | |_   ___ | |    | |    | .  . |\n"
+printf "| |    | || __| / _ \| |    | |    | |\/| |\n"
+printf "| |____| || |_ |  __/| |____| |____| |  | |\n"
+printf "\_____/|_| \__| \___|\_____/\_____/\_|  |_/\n"
+printf "\n                                           "
+printf "\n"
+
 printf "Run python3 service.py to start the service!"
