@@ -27,7 +27,7 @@ cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/s
 
 printf \n
 printf \n
- printf _      _  _          _      _     ___  ___\n
+printf _      _  _          _      _     ___  ___\n
 printf | |    (_)| |        | |    | |    |  \/  |\n
 printf | |     _ | |_   ___ | |    | |    | .  . |\n
 printf | |    | || __| / _ \| |    | |    | |\/| |\n
