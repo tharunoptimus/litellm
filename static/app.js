@@ -7,6 +7,7 @@ let outputTextArea = document.querySelector("#output")
 let clearStatus = () => statusText.textContent = ""
 let setStatus = (content) => statusText.textContent = content
 let clearOutput = () =>	outputTextArea.textContent = ""
+let setOutput = (content) => outputTextArea.textContent = content
 
 submitButton.addEventListener("click", async () => {
 	
@@ -21,9 +22,7 @@ submitButton.addEventListener("click", async () => {
 		return
 	}
 
-	outputTextArea.innerHTML = response
-
-	statusText.innerHTML = "Done!"
+	setOutput(response)
 })
 
 promptTextInput.addEventListener("keyup", (event) => {
