@@ -11,6 +11,11 @@ body {
 	min-height: 100vh;
 }
 
+body {
+	display: flex;
+	justify-content: center;
+}
+
 h1 {
 	margin: 0;
 	text-align: center;
@@ -63,7 +68,8 @@ kbd {
 	flex-direction: column;
 	padding: 2rem;
 	align-items: center;
-	justify-content: center;
+	max-width: 600px;
+	justify-content: flex-start;
 }
 
 .InputContainer {
