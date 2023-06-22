@@ -22,8 +22,9 @@ wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/service.py -O 
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/index.html -O index.html
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/upd-files.sh -O upd-files.sh
 mkdir static
-cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/style.css -O style.css
-cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/app.js -O app.js
+cd static 
+wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/style.css -O style.css
+wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/app.js -O app.js
 
 printf "\n"
 printf "\n"
