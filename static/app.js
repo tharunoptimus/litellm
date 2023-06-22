@@ -11,18 +11,31 @@ let setOutput = (content) => outputTextArea.textContent = content
 
 submitButton.addEventListener("click", async () => {
 	
+	let startTime = new Date().getTime()
+
+	let interval = setInterval(() => {
+		let timeLapsed = ((new Date().getTime() - startTime) / 1000).toFixed(2)
+		setStatus(`Running LiteLLM... (${timeLapsed}s)`)
+	})
+
+
 	let inputText = promptTextInput.value
 	if(inputText.trim() == "") return
-	statusText.innerHTML = "Tokenizing your input..."
-
+	
 	let [response, error] = await getResponse(inputText)
-
+	
 	if(error) {
-		statusText.innerHTML = "Error occured while generating text"
+		setStatus("Error occured while generating text")
 		return
 	}
 
+	let endTime = new Date().getTime()
+	let timeTaken = (endTime - startTime) / 1000
+	
 	setOutput(response)
+	
+	setStatus(`Done in ${timeTaken} seconds`)
+	clearInterval(interval)
 })
 
 promptTextInput.addEventListener("keyup", (event) => {
