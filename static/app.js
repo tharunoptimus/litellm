@@ -1,4 +1,6 @@
 const LLM_SERVICE_ENDPOINT = "http://localhost:8000/generate"
+let submitButton = document.querySelector("#submit")
+let promptTextInput = document.querySelector("#prompt")
 let statusText = document.querySelector("#status")
 let outputTextArea = document.querySelector("#output")
 
@@ -6,6 +8,9 @@ let clearStatus = () => statusText.textContent = ""
 let setStatus = (content) => statusText.textContent = content
 let clearOutput = () =>	outputTextArea.textContent = ""
 
+submitButton.addEventListener("click", async () => {
+	
+	let inputText = promptTextInput.value
 	if(inputText.trim() == "") return
 	statusText.innerHTML = "Tokenizing your input..."
 
@@ -21,7 +26,7 @@ let clearOutput = () =>	outputTextArea.textContent = ""
 	statusText.innerHTML = "Done!"
 })
 
-prompt.addEventListener("keyup", (event) => {
+promptTextInput.addEventListener("keyup", (event) => {
 	if(event.keyCode == 13) {
 		event.preventDefault()
 		submit.click()
