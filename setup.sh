@@ -24,4 +24,4 @@ mkdir static
 cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/style.css -O style.css
 cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/app.js -O app.js
 
-echo "Installation complete. Run `python3 server.py` to start the server"
+echo "Installation complete. Run `python3 service.py` to start the service"
