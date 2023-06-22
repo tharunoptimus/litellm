@@ -3,8 +3,10 @@ let prompt = document.querySelector("#prompt")
 let statusText = document.querySelector("#status")
 let outputTextArea = document.querySelector("#output")
 
-submit.addEventListener("click", async () => {
-	let inputText = prompt.value
+let clearStatus = () => statusText.textContent = ""
+let setStatus = (content) => statusText.textContent = content
+let clearOutput = () =>	outputTextArea.textContent = ""
+
 	if(inputText.trim() == "") return
 	statusText.innerHTML = "Tokenizing your input..."
 
