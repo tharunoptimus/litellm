@@ -1,5 +1,4 @@
-let submit = document.querySelector("#submit")
-let prompt = document.querySelector("#prompt")
+const LLM_SERVICE_ENDPOINT = "http://localhost:8000/generate"
 let statusText = document.querySelector("#status")
 let outputTextArea = document.querySelector("#output")
 
@@ -32,7 +31,8 @@ prompt.addEventListener("keyup", (event) => {
 
 async function getResponse(prompt) {
 	try {
-		let response = await fetch(`http://localhost:8000/generate?prompt=${prompt}`)
+		let endpoint = `${LLM_SERVICE_ENDPOINT}?prompt=${prompt}`
+		let response = await fetch(endpoint)
 		let data = await response.json()
 		return [data.response, null]
 	} catch (error) {
