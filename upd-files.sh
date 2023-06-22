@@ -11,8 +11,10 @@ printf "Downloading the latest files...\n"
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/service.py -O service.py
 wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/index.html -O index.html
 mkdir static
-cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/style.css -O style.css
-cd static && wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/app.js -O app.js
+cd static
+wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/style.css -O style.css
+wget https://raw.githubusercontent.com/tharunoptimus/litellm/main/static/app.js -O app.js
+cd ..
 
 printf "Successfully Updated the Local Files with the latest udpate!\n\n"
 
