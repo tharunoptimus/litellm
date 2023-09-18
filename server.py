@@ -44,75 +44,58 @@ def litellm(prompt):
     # Convert the output token ids to text
     return tokenizer.decode(output[0], skip_special_tokens=True)
 
-
-async def stream_litellm(prompt, websocket):
+def stream_litellm(prompt):
     input_text = prompt
     input_ids = tokenizer.encode(input_text, return_tensors='pt').to(device)
     streamer = TextIteratorStreamer(tokenizer, skip_special_tokens=True)
-
     generation_kwargs = dict(
-        input_ids=input_ids,
-        max_length=512,  # Increase max_length
-        num_beams=1,  # Increase num_beams
-        no_repeat_ngram_size=4,  # Increase no_repeat_ngram_size
-        early_stopping=True,
-        top_k=50,
-        streamer=streamer,
-        top_p=0.95, # Sample from the top 95% of the distribution
-        temperature=0.3 # Control the level of randomness
-    )
-
+		input_ids=input_ids,
+		max_length=512,  # Increase max_length
+		num_beams=1,  # Increase num_beams
+		no_repeat_ngram_size=4,  # Increase no_repeat_ngram_size
+		early_stopping=True,
+		top_k=50,
+		streamer=streamer,
+		top_p=0.95, # Sample from the top 95% of the distribution
+		temperature=0.3 # Control the level of randomness
+	)
     thread = Thread(target=model.generate, kwargs=generation_kwargs)
     thread.start()
-
-    async for new_text in streamer:
-        print(new_text, end="")
-        await websocket.send_text(new_text)
+    for new_text in streamer:
+        yield new_text
 
 
-# Import the necessary libraries for the API
-from fastapi import FastAPI, WebSocket
-from starlette.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 
-app = FastAPI()
+# Import the necessary libraries
+from flask import Flask, request, send_file, Response
+from flask_cors import CORS
 
-# Mount the static files directory
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app = Flask(__name__, static_folder="static")
+CORS(app)
 
-# CORS Configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Allow requests from any origin
-    allow_methods=["GET"],  # Specify the allowed HTTP methods
-    allow_headers=["*"],  # Allow all headers in the requests
-)
 
-@app.get("/")
-def root():
-    return FileResponse("./index.html")
-
-@app.get("/generate")
-def endpoint(prompt: str):
+# Define a GET endpoint
+@app.route("/")
+def index():
+    return send_file("./index.html")
+	
+@app.route("/generate", methods=['GET'])
+def generate():
+    prompt = request.args.get('prompt')
     response = litellm(prompt)
     return {"response": response}
 
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    try:
-        await websocket.accept()
-        while True:
-            data = await websocket.receive_text()
-            prompt = data
-            await stream_litellm(prompt, websocket)
-    except Exception as e:
-        await websocket.close()
-        print(e)
+@app.route("/stream", methods=['GET'])
+def stream():
+    def generate():
+        prompt = request.args.get('prompt')
+        for data in stream_litellm(prompt):
+            yield data
+
+    return Response(generate(), mimetype='text/plain')
 
 
 # Run the app
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
-
+    app.run()
+    

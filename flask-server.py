@@ -2,7 +2,6 @@
 # from transformers import T5ForConditionalGeneration, T5Tokenizer
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 import torch
-import os
 
 # The base model that is to be fine-tuned with alpaca dataset
 base_model_name = "currentlyexhausted/lite-llm"
@@ -18,16 +17,16 @@ print(device.type, "is available")
 print(torch.get_num_threads(), "threads available!")
 
 # Import the necessary libraries
-from flask import Flask, request
+from flask import Flask, request, send_file
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 CORS(app)
 
 # Define a GET endpoint
 @app.route("/")
 def index():
-    return "Hello, world!"
+    return send_file("./index.html")
 
 @app.route("/generate", methods=['GET'])
 def litellm():
@@ -38,7 +37,7 @@ def litellm():
   output = model.generate(
       input_ids=input_ids,
       max_length=512,  # Increase max_length
-      num_beams=8,  # Increase num_beams
+      num_beams=1,  # Increase num_beams
       no_repeat_ngram_size=4,  # Increase no_repeat_ngram_size
       early_stopping=True,
       top_p=0.95, # Sample from the top 95% of the distribution

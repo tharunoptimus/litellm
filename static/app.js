@@ -49,9 +49,38 @@ async function getResponse(prompt) {
 	try {
 		let endpoint = `${LLM_SERVICE_ENDPOINT}?prompt=${prompt}`
 		let response = await fetch(endpoint)
-		let data = await response.json()
+		let data = await response.text()
+		data = JSON.parse(data)
 		return [data.response, null]
 	} catch (error) {
 		return [null, error]
 	}
 }
+
+const fetchData = () => {
+	fetch("/stream?prompt=what is artificial intelligence") // Replace '/stream' with the appropriate URL endpoint
+		.then((response) => {
+			const reader = response.body.getReader()
+
+			const processStream = ({ done, value }) => {
+				if (done) {
+					console.log("Streaming complete")
+					return
+				}
+
+				// Process each chunk of data received from the server
+				const data = new TextDecoder().decode(value)
+				console.log("Received data:", data)
+
+				// Continue reading the stream
+				reader.read().then(processStream)
+			}
+
+			// Start reading the stream
+			reader.read().then(processStream)
+		})
+		.catch((error) => {
+			console.error("Error:", error)
+		})
+}
+
